@@ -1,7 +1,0 @@
-package booking
-
-class ReservationBuilder {
-
-
-
-}

@@ -1,5 +1,5 @@
 package booking
 
-case class Trip(flightSegments: Set[FlightSegment], fare: Fare)
+case class Trip(flightSegments: Set[FlightSegment], fare: Fare, passenger: Passenger)
 
 
