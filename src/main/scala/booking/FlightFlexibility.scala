@@ -3,7 +3,7 @@ package booking
 object FlightFlexibility extends Enumeration {
   type FlightFlexibility = Value
 
-  val Light: FlightFlexibility = Value("First")
-  val Standard: FlightFlexibility = Value("Business")
-  val Flexible: FlightFlexibility = Value("Second");
+  val Light: FlightFlexibility = Value("Light")
+  val Standard: FlightFlexibility = Value("Standard")
+  val Flexible: FlightFlexibility = Value("Flexible");
 }

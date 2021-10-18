@@ -1,15 +1,15 @@
 package booking
 
-class BookingPlanner private () {
+class BookingPlanner private() {
   private var trips: Set[Trip] = Set()
 
 
   def addTripFor(passenger: Passenger): A1 = {
-    fare => new SegmentAccumulator(passenger, fare)
+    fare => new TripHelper(passenger, fare)
   }
 
   private def registerTrip(segments: List[FlightSegment], passenger: Passenger, fare: Fare): BookingPlanner = {
-    trips += new Trip(Set(segments), fare, passenger)
+    trips += Trip(Set(segments), fare, passenger)
     this
   }
 
@@ -20,19 +20,21 @@ class BookingPlanner private () {
 
 
   trait A1 {
-    def withFare(fare: Fare): SegmentAccumulator
+    def withFare(fare: Fare): TripHelper
   }
 
 
-  class SegmentAccumulator(passenger: Passenger, fare: Fare) {
+  class TripHelper(passenger: Passenger, fare: Fare) {
     val segments: List[FlightSegment] = List()
 
     trait B1 {
-      def operatedBy(airline: Airline): B2
+      def marketedBy(airline: Airline): B2
     }
 
     trait B2 {
-      def marketedBy(airline: Airline): B3
+      def operatedBy(airline: Airline): B3
+
+      def from(city: Airport): B4
     }
 
     trait B3 {
@@ -48,7 +50,7 @@ class BookingPlanner private () {
     }
 
     trait B6 {
-      def sittingIn(seat: Seat): SegmentAccumulator
+      def sittingIn(seat: Seat): TripHelper
     }
 
 
@@ -59,25 +61,34 @@ class BookingPlanner private () {
 
 
     def withFlight(): B1 = {
-      operatedBy =>
-        marketedBy =>
-          from =>
+      marketedBy =>
+        new B2 {
+          def operatedBy(operatedBy: Airline): B3 = {
+            from =>
+              to =>
+                flightCode =>
+                  seat => {
+                    segments.appended(new FlightSegment(from, to, marketedBy, operatedBy, seat, flightCode))
+                    TripHelper.this
+                  }
+          }
+
+          def from(from: Airport): B4 = {
             to =>
               flightCode =>
                 seat => {
-                  segments.appended(new FlightSegment(from, to, marketedBy, operatedBy, seat, flightCode))
-                  this
+                  segments.appended(new FlightSegment(from, to, marketedBy, marketedBy, seat, flightCode))
+                  TripHelper.this
                 }
-
-
+          }
+        }
     }
-
   }
-
 }
 
 
-object BookingPlanner{
+
+object BookingPlanner {
   def planBooking(): BookingPlanner = {
     new BookingPlanner()
   }

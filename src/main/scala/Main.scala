@@ -27,16 +27,17 @@ object Main {
 
     val booking = Booking(Set[Trip](trip1, trip2))
 
-//Making the same booking with a builder:
+//Making the same booking with a builder, in a real world application the constructor of Booking would be made private:
     val bookingPlanner = BookingPlanner.planBooking()
+
     bookingPlanner.addTripFor(passenger).withFare(fare1)
-      .withFlight().operatedBy(oceanicAirlines).marketedBy(oceanicAirlines)
+      .withFlight().marketedBy(oceanicAirlines)
       .from(laAirport).to(syAirport).withFlightCode(815).sittingIn(seat1).finishTrip()
 
     bookingPlanner.addTripFor(passenger).withFare(fare2)
-      .withFlight().operatedBy(oceanicAirlines).marketedBy(oceanicAirlines)
+      .withFlight().marketedBy(oceanicAirlines)
       .from(syAirport).to(hoAirport).withFlightCode(700).sittingIn(seat2)
-      .withFlight().operatedBy(oceanicAirlines).marketedBy(pamAirAirlines)
+      .withFlight().marketedBy(oceanicAirlines).operatedBy(pamAirAirlines)
       .from(hoAirport).to(laAirport).withFlightCode(100).sittingIn(seat3).finishTrip()
 
     val bookingFromBuilder: Booking = bookingPlanner.finishBooking()
