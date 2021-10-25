@@ -5,11 +5,11 @@ object Main {
 
     val passenger = new Passenger("Alex")
     val losAngeles = City("Los angeles")
-    val laAirport = Airport("", losAngeles)
+    val laAirport = Airport("CCC", losAngeles)
     val sydney = City("sydney")
-    val syAirport = Airport("", sydney)
+    val syAirport = Airport("AAA", sydney)
     val honolulu = City("Los angeles")
-    val hoAirport = Airport("", honolulu)
+    val hoAirport = Airport("BBB", honolulu)
     val oceanicAirlines = Airline("Oceanic Airlines", "OA")
     val pamAirAirlines = Airline("Pan Am Airlines", "PAA")
     val seat1 = Seat("3A", FlightClass.Business)
@@ -35,36 +35,7 @@ object Main {
     val booking = Booking(Set[Trip](trip1, trip2))
 
     printf(booking.toString)
-
-    //Making the same booking with a builder, in a real world application the constructor of Booking would be made private:
-    //    val bookingPlanner = BookingPlanner.planBooking()
-    //
-    //    bookingPlanner.addTripFor(passenger).withFare(fare1)
-    //      .withFlight().marketedBy(oceanicAirlines)
-    //      .from(laAirport).to(syAirport).withFlightCode(815).sittingIn(seat1).finishTrip()
-    //
-    //    bookingPlanner.addTripFor(passenger).withFare(fare2)
-    //      .withFlight().marketedBy(oceanicAirlines)
-    //      .from(syAirport).to(hoAirport).withFlightCode(700).sittingIn(seat2)
-    //      .withFlight().marketedBy(oceanicAirlines).operatedBy(pamAirAirlines)
-    //      .from(hoAirport).to(laAirport).withFlightCode(100).sittingIn(seat3).finishTrip()
-    //
-    //    val bookingFromBuilder: Booking = bookingPlanner.finishBooking()
-    //
-    //    printf(bookingFromBuilder.toString)
-    //    printf(bookingFromBuilder.toString)
-    //    printf(bookingFromBuilder.toString)
-    //    printf(bookingFromBuilder.toString)
-
-
   }
 }
 
 
-//Possible builder:
-// planner = Booking.plan();
-//planner.addTrip(fare).withFlight(code).from(airport1).to(airport2).sittingIn(seat1)
-// .thenFlight(code).to(airport3).sittingIn(sea2);
-// planner.addTrip(fare).withFlight(code).from(airport1).to(airport2).sittingIn(seat1)
-// .thenFlight(code).to(airport3).sittingIn(sea2);
-// Booking booking = planner.getBooking()
